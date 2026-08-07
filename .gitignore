@@ -1,0 +1,23 @@
+# MATLAB
+*.asv
+*.m~
+*.mex*
+slprj/
+codegen/
+
+# Generated figures and results
+*.pdf
+*.png
+*.eps
+results/
+
+# Original, unreduced exports. Kept locally as the input to
+# tools/makeExampleDataset.m; the reduced copies in data/ are what ship.
+raw/
+
+# Editor / tooling
+.claude/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db

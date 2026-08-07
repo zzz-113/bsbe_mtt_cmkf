@@ -1,0 +1,57 @@
+# TODO before publishing: fill in the fields marked TODO and delete this line.
+cff-version: 1.2.0
+message: If you use this software, please cite both the software and the paper.
+title: >-
+  bsbe_mtt_cmkf: multi-target tracking of single targets in broadband
+  split-beam echosounder data
+abstract: >-
+  MATLAB implementation of single-target detection and multi-target tracking in
+  broadband split-beam echosounder recordings, using a converted measurement
+  Kalman filter with the conversion Jacobian evaluated at the predicted
+  position.
+type: software
+authors:
+  - family-names: Zhuang
+    given-names: Zhaozhong
+    # orcid: 'https://orcid.org/TODO'
+    # affiliation: TODO
+license: MIT
+repository-code: https://github.com/zzz-113/bsbe_mtt_cmkf
+version: 1.0.0
+date-released: 2026-01-01 # TODO: release date
+keywords:
+  - fisheries acoustics
+  - split-beam echosounder
+  - broadband
+  - target tracking
+  - Kalman filter
+
+# TODO: complete once the paper has a journal, volume and DOI.
+preferred-citation:
+  type: article
+  title: TODO
+  authors:
+    - family-names: Zhuang
+      given-names: Zhaozhong
+  journal: TODO
+  year: 2026
+  # volume: TODO
+  # start: TODO
+  # doi: TODO
+
+references:
+  - type: article
+    title: >-
+      Tracking with debiased consistent converted measurements versus EKF
+    authors:
+      - family-names: Lerro
+        given-names: Dirk
+      - family-names: Bar-Shalom
+        given-names: Yaakov
+    journal: IEEE Transactions on Aerospace and Electronic Systems
+    year: 1993
+    volume: 29
+    issue: 3
+    start: 1015
+    end: 1022
+    doi: 10.1109/7.220948
