@@ -8,8 +8,8 @@
 %   Requires MATLAB R2023b or later and the Signal Processing Toolbox.
 
 clear
-close all
-clc
+% close all
+% clc
 
 repoDir = fileparts(mfilename('fullpath'));
 addpath(fullfile(repoDir, 'src'), fullfile(repoDir, 'external'))

@@ -71,7 +71,7 @@ if pingLength > size(pings.compressed, 1)
          'the ping data.'], d.maxAnalysisRange, size(pings.compressed, 1) * rangePerSample);
 end
 
-% The pulse-compressed peak sits at the centre of the transmit pulse, so the
+% The pulse-compressed peak sits at the Center of the transmit pulse, so the
 % range axis is shifted back by half a pulse length.
 rangeVector = (0:pingLength-1).' * rangePerSample - pings.pulseDuration * soundSpeed / 2;
 timeVector  = rangeVector * 2 / soundSpeed;
@@ -81,8 +81,18 @@ echoData = pings.compressed(1:pingLength, :, :);
 %% Upsampling -----------------------------------------------------------
 samplingFreq = baseSamplingFreq * d.interpFactor;
 
-[echoData, timeVector] = resample(echoData, timeVector, samplingFreq);
-transmitSignal = resample(pings.transmitSignal, d.interpFactor, 1);
+% Original routine
+% [echoData, timeVector] = resample(echoData, timeVector, samplingFreq);
+% transmitSignal = resample(pings.transmitSignal, d.interpFactor, 1);
+
+% To accomodate some SIMRAD systems' bandpass sampling (bandpass filter +
+% decimation) for interpolation
+frequencyCenter = (pings.frequencyStart + pings.frequencyEnd) / 2;
+f0 = frequencyCenter - round(frequencyCenter/baseSamplingFreq)*baseSamplingFreq; 
+echoData = resample_about(echoData, baseSamplingFreq, d.interpFactor, 1, f0);
+timeVector = (0:size(echoData,1)-1).'/samplingFreq + timeVector(1);
+transmitSignal = resample_about(pings.transmitSignal, baseSamplingFreq, d.interpFactor, 1, f0);
+
 
 rangeVector     = timeVector * soundSpeed / 2;
 samplesPerMetre = samplesPerMetre * d.interpFactor;
@@ -134,9 +144,9 @@ transmitFFT = transmitFFT(freqSortMap);
 sectorCentroidRadius = 2 * d.transducerRadius * sin(pi/3) / pi;
 sectorSeparation     = sectorCentroidRadius * sqrt(3);
 
-% Phase difference to angle, at the centre of the band.
-frequencyCentre = (pings.frequencyStart + pings.frequencyEnd) / 2;
-angleSensitivity = soundSpeed / (2 * pi * frequencyCentre) / sectorSeparation;
+% Phase difference to angle, at the Center of the band.
+% frequencyCenter = (pings.frequencyStart + pings.frequencyEnd) / 2;
+angleSensitivity = soundSpeed / (2 * pi * frequencyCenter) / sectorSeparation;
 
 % Same conversion, resolved per frequency bin.
 angleSensitivitySpectral = soundSpeed ./ (2 * pi * sortedFreq) / sectorSeparation;
